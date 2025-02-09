@@ -51,13 +51,13 @@ internal class Program
             {
                 userGuess = await GetUserGuessAsync(reader, writer);
                 if (userGuess.Equals(Int32.MinValue)) break;
-                string response;
+                GameResponse response;
                 lock (game)
                 {
-                    response = game.Guess(userGuess).ToString();
+                    response = game.Guess(userGuess);
                 }
 
-                await writer.WriteLineAsync(response);
+                await writer.WriteLineAsync(response.ToString());
             } while (game.IsRunning);
 
         }
