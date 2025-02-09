@@ -43,7 +43,9 @@ internal class Program
             using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
             using StreamWriter writer = new StreamWriter(stream, Encoding.UTF8) { AutoFlush = true };
 
-            await writer.WriteLineAsync("Welcome to Guess A Number Game! Try and guess the number between 1 and 100.");
+            string clientName = await GetClientNameAsync(reader, writer);            
+            
+            await writer.WriteLineAsync($"Welcome {clientName}  to Guess A Number Game! Try and guess the number between 1 and 100.");
             int userGuess;
             do
             {
@@ -99,6 +101,13 @@ internal class Program
             throw;
         }
 
+    }
+    
+    private static async Task<string> GetClientNameAsync(StreamReader reader, StreamWriter writer)
+    {
+        await writer.WriteLineAsync("Please enter your name:");
+        var input = await reader.ReadLineAsync();
+        return input ?? GetClientNameAsync(reader, writer).Result ;
     }
 }
 
