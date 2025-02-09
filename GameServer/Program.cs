@@ -23,7 +23,7 @@ internal class Program
             while (true)
             {
                 TcpClient client = await listener.AcceptTcpClientAsync();
-                Console.WriteLine("{0:u} Client connected", DateTime.Now);
+                Console.WriteLine("{0:u} Client connected", DateTime.UtcNow);
                 _ = Task.Run(() => HandleClientAsync(client));
             }
         }
@@ -61,8 +61,8 @@ internal class Program
         }
         catch (IOException e)
         {
-            Console.WriteLine("{0:u} Client disconnected unexpectedly.", DateTime.Now);
-            Console.WriteLine($"{0:u} Unexpected error: {e.Message}", DateTime.Now);
+            Console.WriteLine("{0:u} Client disconnected unexpectedly.", DateTime.UtcNow);
+            Console.WriteLine($"{0:u} Unexpected error: {e.Message}", DateTime.UtcNow);
 
         }
         catch (Exception e)
@@ -73,7 +73,7 @@ internal class Program
         finally
         {
             client.Close();
-            Console.WriteLine("{0:T} Client disconnected", DateTime.Now);
+            Console.WriteLine("{0:u} Client disconnected", DateTime.UtcNow);
         }
         
     }
