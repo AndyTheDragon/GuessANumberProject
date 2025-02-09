@@ -24,26 +24,26 @@ public class Game
         return new Random().Next(min, max + 1);
     }
 
-    public string Guess(int guessedNumber)
+    public GameResponse Guess(int guessedNumber)
     {
         NumberOfGuesses++;
         if (guessedNumber < _min || guessedNumber > _max)
         {
-            return $"Please guess a number between {_min} and {_max}.";
+            return GameResponse.Invalid(_min, _max);
         }
         
         LastGuess = guessedNumber;
         if (guessedNumber > _targetNumber)
         {
-            return "Too high!";
+            return GameResponse.TooHigh;
         }
 
         if (guessedNumber < _targetNumber)
         {
-            return "Too low!";
+            return GameResponse.TooLow;
         }
 
-        string output = $"Correct, you guessed it in {NumberOfGuesses}.";
+        GameResponse output = GameResponse.Correct(NumberOfGuesses);
         NumberOfGuesses = 0;
         _targetNumber = GenerateNumber(_min, _max);
         return output;

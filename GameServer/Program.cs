@@ -54,7 +54,7 @@ internal class Program
                 string response;
                 lock (game)
                 {
-                    response = game.Guess(userGuess);
+                    response = game.Guess(userGuess).ToString();
                 }
 
                 await writer.WriteLineAsync(response);

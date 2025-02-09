@@ -15,7 +15,7 @@ internal class Program
         {
             userGuess = GetUserGuess();
             if (userGuess.Equals(Int32.MinValue)) break;
-            Console.WriteLine(game.Guess(userGuess));
+            Console.WriteLine(game.Guess(userGuess).ToString());
         } while (game.IsRunning);
     }
 

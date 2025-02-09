@@ -17,7 +17,8 @@ namespace GuessANumberGame.Tests
             var result = game.Guess(3);
 
             // Assert
-            Assert.Equal("Too low!", result);
+            Assert.Equal(GameResponse.TooLow, result);
+            Assert.Equal(GameResponse.TooLow.ToString(), result.ToString());
         }
 
         [Fact]
@@ -32,7 +33,7 @@ namespace GuessANumberGame.Tests
             var result = game.Guess(7);
 
             // Assert
-            Assert.Equal("Too high!", result);
+            Assert.Equal(GameResponse.TooHigh, result);
         }
 
         [Fact]
@@ -48,7 +49,8 @@ namespace GuessANumberGame.Tests
             var secondGuessResult = game.Guess(5); // Correct guess on the second attempt
 
             // Assert
-            Assert.Contains("Correct, you guessed it in 2.", secondGuessResult); // Verify dynamic success message
+            Assert.Equal(GameResponse.Correct(2), secondGuessResult); // Verify dynamic success message
+            Assert.Equal(GameResponse.Correct(2).ToString(), secondGuessResult.ToString()); // Verify static success message
         }
 
 
@@ -62,7 +64,8 @@ namespace GuessANumberGame.Tests
             var result = game.Guess(15);
 
             // Assert
-            Assert.Equal("Please guess a number between 1 and 10.", result);
+            Assert.Equal(GameResponse.Invalid(1,10), result);
+            Assert.Equal(GameResponse.Invalid(1,10).ToString(), result.ToString());
         }
     }
 }
